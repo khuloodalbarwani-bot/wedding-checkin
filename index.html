@@ -38,10 +38,27 @@ font-weight:bold;
 
 <script>
 
+const API_URL =
+"https://script.google.com/macros/s/AKfycbzetVc1h9uFz6CrqToUwQcNZwFFG-dkyxtn_C2S4vn2c4wTjIPzFS9Fyh6Mnv7gXK8/exec";
+
 function onScanSuccess(decodedText){
 
 document.getElementById("result").innerHTML =
-"تم العثور على: " + decodedText;
+"⏳ جاري التحقق...";
+
+fetch(API_URL + "?id=" + encodeURIComponent(decodedText))
+.then(r => r.text())
+.then(html => {
+
+document.body.innerHTML = html;
+
+})
+.catch(err => {
+
+document.getElementById("result").innerHTML =
+"❌ خطأ في الاتصال";
+
+});
 
 html5QrcodeScanner.clear();
 }
