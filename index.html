@@ -39,10 +39,17 @@ font-weight:bold;
 
 <script>
 
+let scanned = false;
+
 function onScanSuccess(decodedText){
+
+if(scanned) return;
+scanned = true;
 
 document.getElementById("result").innerHTML =
 "⏳ جاري التحقق...";
+
+html5QrcodeScanner.clear();
 
 window.location.href =
 "https://script.google.com/macros/s/AKfycbzetVc1h9uFz6CrqToUwQcNZwFFG-dkyxtn_C2S4vn2c4wTjIPzFS9Fyh6Mnv7gXK8/exec?id="
@@ -54,7 +61,7 @@ let html5QrcodeScanner =
 new Html5QrcodeScanner(
 "reader",
 {
-fps:10,
+fps:5,
 qrbox:250
 }
 );
@@ -65,3 +72,4 @@ html5QrcodeScanner.render(onScanSuccess);
 
 </body>
 </html>
+
